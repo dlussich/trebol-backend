@@ -1,18 +1,19 @@
+require('dotenv').config();
 const express = require("express");
 const app = express();
-const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 let playersRoute = require('./api/routes/players');
 
-app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 mongoose.Promise = global.Promise;
-
-mongoose.connect('mongodb+srv://'+process.env.MONGO_ATLAS_USER+':'+ process.env.MONGO_ATLAS_PW +'@'+process.env.MONGO_ATLAS_HOST+'?retryWrites=true', { useNewUrlParser: true });
+mongoose.connect(process.env.DB_CONN_STRING, { useNewUrlParser: true })
+        .catch(err=>{
+          console.log(err);
+        });
 
 
 app.use((req, res, next) => {
