@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb+srv://trebol-admin:'+ process.env.MONGO_ATLAS_PW +'@trebol-db-xhtjs.mongodb.net/trebol-db?retryWrites=true', { useNewUrlParser: true });
+mongoose.connect('mongodb+srv://'+process.env.MONGO_ATLAS_USER+':'+ process.env.MONGO_ATLAS_PW +'@'+process.env.MONGO_ATLAS_HOST+'?retryWrites=true', { useNewUrlParser: true });
 
 
 app.use((req, res, next) => {
