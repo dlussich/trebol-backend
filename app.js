@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.DB_CONN_STRING, { useNewUrlParser: true })
+mongoose.connect(process.env.DB_CONN_STRING, { useNewUrlParser: true, useUnifiedTopology:true  })
         .catch(err=>{
           console.log(err);
         });
