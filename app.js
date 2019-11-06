@@ -1,20 +1,12 @@
-require('dotenv').config();
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
 
+let accessRoute = require('./api/routes/access');
 let playersRoute = require('./api/routes/players');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-mongoose.Promise = global.Promise;
-mongoose.connect(process.env.DB_CONN_STRING, { useNewUrlParser: true, useUnifiedTopology:true  })
-        .catch(err=>{
-          console.log(err);
-        });
-
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -30,7 +22,7 @@ app.use((req, res, next) => {
   });
 
 
-
+app.use("/",accessRoute);
 app.use("/players",playersRoute);
 
 // Handler for 404 - Resource Not Found
