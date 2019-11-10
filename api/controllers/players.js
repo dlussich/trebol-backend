@@ -98,19 +98,31 @@ exports.update_player = (req, res,next) => {
 };
 
 exports.delete_player = (req, res,next) => {
-    const id = req.params.playerId;
-    Player.remove({ _id: id })
-      .exec()
-      .then(result => {
-        res.status(200).json({
-            message:"Player successfully removed!",
-            data:result
-        });
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
-        });
-      });
+    
+     const _id =req.params.playerId; 
+     Player.findById(_id).exec().then(result=>{
+      if(result){
+          Player.deleteOne({ _id: _id })
+            .exec()
+            .then(data => {
+                res.status(200).json({
+                  message:"Player successfully removed!",
+                  data:data
+                });
+            }).catch(err => {
+                console.log(err);
+                res.status(500).json({
+                  error: err
+                });
+            });
+
+      }else{
+         res.status(404).json({
+             message: "Player not found for that ID!"
+         });
+      }
+     
+  }).catch(err=>{
+      res.status(404).json(err);
+  });
 };
