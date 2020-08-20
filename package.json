@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/dlussich/trebol-backend#readme",
   "dependencies": {
-    "bcrypt": "^3.0.5",
+    "bcrypt": "^5.0.0",
     "body-parse": "^0.1.0",
     "chai": "^4.2.0",
     "express": "^4.16.4",
